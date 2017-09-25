@@ -1,0 +1,74 @@
+[
+  {
+    "countryCode": "US",
+    "countryName": "United States",
+    "isoNumeric": "840",
+    "img": "http://169.254.96.214:3000/country-flags/US.png",
+    "capital": "Washington D.C.",
+    "continent": "NA"
+  },
+  {
+    "countryCode": "GB",
+    "countryName": "United Kingdom",
+    "isoNumeric": "826",
+    "img": "http://169.254.96.214:3000/country-flags/GB.png",
+    "capital": "London",
+    "continent": "EU"
+  },
+  {
+    "countryCode": "IN",
+    "countryName": "India",
+    "isoNumeric": "356",
+    "img": "http://169.254.96.214:3000/country-flags/IN.png",
+    "capital": "New Delhi",
+    "continent": "AS"
+  },
+  {
+    "countryCode": "DE",
+    "countryName": "Germany",
+    "isoNumeric": "276",
+    "img": "http://169.254.96.214:3000/country-flags/DE.png",
+    "capital": "Berlin",
+    "continent": "EU"
+  },
+  {
+    "countryCode": "CN",
+    "countryName": "China",
+    "isoNumeric": "156",
+    "img": "http://169.254.96.214:3000/country-flags/CH.png",
+    "capital": "Beijing",
+    "continent": "AS"
+  },
+  {
+    "countryCode": "CA",
+    "countryName": "Canada",
+    "isoNumeric": "124",
+    "img": "http://169.254.96.214:3000/country-flags/CA.png",
+    "capital": "Ottawa",
+    "continent": "NA"
+  },
+  {
+    "countryCode": "BR",
+    "countryName": "Brazil",
+    "isoNumeric": "076",
+    "img": "http://169.254.96.214:3000/country-flags/BR.png",
+    "capital": "Brasília",
+    "continent": "SA"
+  },
+  {
+    "countryCode": "FR",
+    "countryName": "France",
+    "isoNumeric": "250",
+    "img": "http://169.254.96.214:3000/country-flags/FR.png",
+    "capital": "Paris",
+    "continent": "EU"
+  },
+  {
+    "countryCode": "CH",
+    "countryName": "Switzerland",
+    "isoNumeric": "756",
+    "img": "http://169.254.96.214:3000/country-flags/CH.png",
+    "capital": "Bern",
+    "continent": "EU"
+  }
+]

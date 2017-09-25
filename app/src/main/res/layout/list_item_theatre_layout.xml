@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="model" type="com.imnotout.androidj2v8hook.Models.AppModels.Theatre"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`No. Of Screens : ` + model.screensCount, default=`screensCount`}" />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Seating Capacity : ` + model.seatingCapacity, default=`Seating Capacity : No Mentioned`}" />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`No. Of Shows : ` + model.showsPerScreen, default=`No. Of Shows : No Mentioned`}" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,26 @@
+{
+  "name": "androidj2v8hook.js",
+  "version": "1.0.0",
+  "description": "androidj2v8hook.js : Sample LIbrary for generating .js bundle for Android J2V8 Application",
+  "private": false,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Suresh Jaladanki",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "bluebird": "^3.5.0",
+    "jsc-android": "^216113.0.2",
+    "nedb": "^1.8.0",
+    "shortid": "^2.2.8",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "expose-loader": "^0.7.3",
+    "json-loader": "^0.5.7",
+    "node-pre-gyp": "^0.6.36",
+    "webpack": "^3.5.5"
+  }
+}

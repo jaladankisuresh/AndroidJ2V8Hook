@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <import type="java.lang.String"/>
+        <variable name="holder" type=".ViewAdapters.EstablishmentsArrayAdapter.EstablishmentViewHolder"/>
+        <variable name="model" type=".Models.AppModels.Establishment"/>
+    </data>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/white"
+            app:contentPadding="5dp">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:padding="4dp"
+                android:layout_gravity="top|end"
+                android:id="@+id/img_edit_options"
+                android:src="@drawable/edit_options"
+                android:onClick="@{holder::onClick}"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.name, default=`Name`}" />
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.type, default=`Type`}" />
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.location, default=`Location`}" />
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(model.rating), default=`Rating`}" />
+                <ViewStub android:id="@+id/stub_establishment_child"
+                    android:inflatedId="@+id/item_establishment_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:model="@{model}"/>
+                <include layout="@layout/content_comments_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:model="@{model.comments}"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+</layout>
