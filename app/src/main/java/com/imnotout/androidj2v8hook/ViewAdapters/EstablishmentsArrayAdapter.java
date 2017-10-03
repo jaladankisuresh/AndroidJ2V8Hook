@@ -15,6 +15,7 @@ import com.imnotout.androidj2v8hook.BR;
 import com.imnotout.androidj2v8hook.Models.AppBaseModels;
 import com.imnotout.androidj2v8hook.Models.AppModels;
 import com.imnotout.androidj2v8hook.R;
+import com.imnotout.androidj2v8hook.Utils.RxBus;
 import com.imnotout.androidj2v8hook.databinding.ListItemEstablishmentLayoutBinding;
 
 import java.util.List;
@@ -37,17 +38,17 @@ public class EstablishmentsArrayAdapter
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         ListItemEstablishmentLayoutBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item_establishment_layout, parent, false);
-        ViewStub stub_establishment_child = binding.stubEstablishmentChild.getViewStub();
-        if(viewType == AppBaseModels.EstablishmentType.HOTEL.getValue().hashCode()) {
-            stub_establishment_child.setLayoutResource(R.layout.list_item_hotel_layout);
-        }
-        else if(viewType == AppBaseModels.EstablishmentType.RESTAURANT.getValue().hashCode()) {
-            stub_establishment_child.setLayoutResource(R.layout.list_item_restaurant_layout);
-        }
-        else { //if(viewType == AppModels.EstablishmentType.THEATRE.getValue().hashCode()) {
-            stub_establishment_child.setLayoutResource(R.layout.list_item_theatre_layout);
-        }
-        stub_establishment_child.inflate();
+//        ViewStub stub_establishment_child = binding.stubEstablishmentChild.getViewStub();
+//        if(viewType == AppBaseModels.EstablishmentType.HOTEL.getValue().hashCode()) {
+//            stub_establishment_child.setLayoutResource(R.layout.list_item_hotel_layout);
+//        }
+//        else if(viewType == AppBaseModels.EstablishmentType.RESTAURANT.getValue().hashCode()) {
+//            stub_establishment_child.setLayoutResource(R.layout.list_item_restaurant_layout);
+//        }
+//        else { //if(viewType == AppModels.EstablishmentType.THEATRE.getValue().hashCode()) {
+//            stub_establishment_child.setLayoutResource(R.layout.list_item_theatre_layout);
+//        }
+//        stub_establishment_child.inflate();
         return new EstablishmentViewHolder(binding);
     }
 
@@ -70,19 +71,22 @@ public class EstablishmentsArrayAdapter
     public class EstablishmentViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
-        private final ListItemEstablishmentLayoutBinding binding;
+        private ListItemEstablishmentLayoutBinding binding;
         private AppModels.Establishment model;
 
         public EstablishmentViewHolder(ListItemEstablishmentLayoutBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
+
+            this.binding= binding;
         }
 
         public void bind(AppModels.Establishment model) {
             this.model = model;
-            binding.setVariable(BR.holder, this);
+            binding.setVariable(BR.mHolder, this);
             binding.setVariable(BR.model, model);
             binding.executePendingBindings();
+
+            binding.imgEditOptions.setOnClickListener(this);
         }
 
         @Override
@@ -101,6 +105,9 @@ public class EstablishmentsArrayAdapter
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.menu_add_commment:
+                    Bundle args = new Bundle();
+                    args.putSerializable("model", model);
+                    RxBus.publish(RxBus.MessageSubjectType.ESTABLISHMENT_ADD_COMMENT, args);
                     return true;
             }
             return false;

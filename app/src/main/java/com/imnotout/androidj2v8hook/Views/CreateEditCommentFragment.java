@@ -1,73 +1,58 @@
 package com.imnotout.androidj2v8hook.Views;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.imnotout.androidj2v8hook.AndroidApplication;
+import com.imnotout.androidj2v8hook.Models.AppModels;
 import com.imnotout.androidj2v8hook.R;
+import com.imnotout.androidj2v8hook.Utils.RxBus;
+import com.imnotout.androidj2v8hook.databinding.ActivityMainBinding;
+import com.imnotout.androidj2v8hook.databinding.FragmentCreateEditCommentBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CreateEditCommentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
-public class CreateEditCommentFragment extends Fragment {
+public class CreateEditCommentFragment
+        extends DialogFragment implements View.OnClickListener {
 
-    private OnFragmentInteractionListener mListener;
+    private static final String LOG_APP_TAG = AndroidApplication.getAppTag();
+    private FragmentCreateEditCommentBinding binding;
 
     public CreateEditCommentFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_edit_comment, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_create_edit_comment, container, false);
+        View view = binding.getRoot();
+        int index =  getArguments().getInt("index", -1);
+        AppModels.Establishment establishment =  (AppModels.Establishment) getArguments().getSerializable("model");
+        binding.setIndex(index);
+        binding.setModel(establishment);
+        binding.setMView(this);
+        binding.btnSubmitComment.setOnClickListener(this);
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        getDialog().setTitle("CreateEditCommentFragment");
+        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
+        return view;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void onClick(View view) {
+        Bundle args = getArguments();
+        args.putString("newComment", binding.txtAddEditComment.getText().toString());
+        RxBus.publish(RxBus.MessageSubjectType.POST_NEW_COMMENT, args);
     }
 }

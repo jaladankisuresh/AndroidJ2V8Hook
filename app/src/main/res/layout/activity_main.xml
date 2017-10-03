@@ -5,7 +5,7 @@
         <import type="android.view.View"/>
         <import type="com.imnotout.androidj2v8hook.ViewAdapters.EstablishmentsArrayAdapter"/>
         <variable name="vm" type="com.imnotout.androidj2v8hook.ViewModels.MainVM"/>
-        <variable name="activity" type="com.imnotout.androidj2v8hook.Views.MainActivity"/>
+        <variable name="mView" type="com.imnotout.androidj2v8hook.Views.MainActivity"/>
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,32 +14,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{activity.data == null ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{mView.data == null ? View.VISIBLE : View.GONE}"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="@{activity.data != null ? View.VISIBLE : View.GONE}">
-            <Button
+            android:visibility="@{mView.data != null ? View.VISIBLE : View.GONE}">
+            <Button android:id="@+id/btn_delete_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete One Item"
-                android:onClick="@{activity::onClick}"/>
+                android:text="Delete One Item"/>
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{activity.data.name, default=`Name`}" />
+                android:text="@{mView.data.name, default=`Name`}" />
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{activity.data.description, default=`Description`}" />
+                android:text="@{mView.data.description, default=`Description`}" />
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{`Total Items : ` + activity.data.count, default=`Total Items : 0`}" />
+                android:text="@{`Total Items : ` + mView.data.count, default=`Total Items : 0`}" />
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:adapter="@{EstablishmentsArrayAdapter.newInstance(activity.data.establishments)}" />
+                app:adapter="@{EstablishmentsArrayAdapter.newInstance(mView.data.establishments)}" />
         </LinearLayout>
     </FrameLayout>
 </layout>

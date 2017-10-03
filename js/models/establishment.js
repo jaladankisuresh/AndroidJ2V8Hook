@@ -2,7 +2,7 @@ var getComments = function(path, data) {
   let models = require('./index');
   let comments = [];
   for (let item of data) {
-    item.path =  path + 'comments/' + data.indexOf(item);
+    item.path =  path + '/comments/' + data.indexOf(item);
 
     let comment = new models.Comment(item);
     comments.push(comment);
@@ -20,16 +20,22 @@ var Establishment = class Establishment {
     this.rating = data.rating;
     this.comments = getComments(this.path, data.comments);
   }
-  addComment(comment) {
+  addComment(commentStr, cb) {
     var shortid = require('shortid');
     let id = shortid.generate();
-    this.comments.push({id : comment});
+    let commentsLength = this.comments.length;
+    let newLength = this.comments.push({path: this.path + '/comments/' + commentsLength, id : id, text : commentStr});
+    let comment = this.comments[newLength - 1];
+    cb(null, JSON.stringify(this), this);
   }
-  editComment(idx, comment) {
-    this.comments[idx].text = comment;
+  editComment(idx, commentStr, cb) {
+    this.comments[idx].text = commentStr;
+    let comment = this.comments[idx];
+    cb(null, JSON.stringify(comment), comment);
   }
-  removeComment(idx) {
+  removeComment(idx, cb) {
     delete this.comments[idx];
+    cb();
   }
 };
 

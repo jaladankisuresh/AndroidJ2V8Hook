@@ -7,7 +7,6 @@ import com.eclipsesource.v8.JavaVoidCallback;
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Object;
-import com.eclipsesource.v8.utils.MemoryManager;
 import com.imnotout.androidj2v8hook.AndroidApplication;
 import com.imnotout.androidj2v8hook.NetworkIO.IWebApi;
 import com.imnotout.androidj2v8hook.NetworkIO.WebServiceClient;
@@ -39,21 +38,25 @@ public class JavaScriptApi {
             public void onSuccessResponse(String dataJSON) {
                 Log.i(LOG_APP_TAG, dataJSON);
 
-                MemoryManager mReferenceManager = new MemoryManager(runtime);
-                final V8Object iAmAjax = runtime.getObject("iAmApp").getObject("iAmAjax");
+                final V8Object iAmApp = runtime.getObject("iAmApp");
+                final V8Object iAmAjax = iAmApp.getObject("iAmAjax");
                 V8Array onResponseParams = new V8Array(runtime).push(token).push(dataJSON);
                 iAmAjax.executeVoidFunction("onSuccessResponse", onResponseParams);
-                mReferenceManager.release();
+
+                iAmAjax.release();
+                iAmApp.release();
             }
             @Override
             public void onErrorResponse(String errMessage) {
                 Log.e(LOG_APP_TAG, errMessage);
 
-                MemoryManager mReferenceManager = new MemoryManager(runtime);
-                final V8Object iAmAjax = runtime.getObject("iAmApp").getObject("iAmAjax");
+                final V8Object iAmApp = runtime.getObject("iAmApp");
+                final V8Object iAmAjax = iAmApp.getObject("iAmAjax");
                 V8Array onResponseParams = new V8Array(runtime).push(token).push(errMessage);
                 iAmAjax.executeVoidFunction("onErrorResponse", onResponseParams);
-                mReferenceManager.release();
+
+                iAmAjax.release();
+                iAmApp.release();
             }
             @Override
             public Context getListenerContext() {
@@ -77,14 +80,16 @@ public class JavaScriptApi {
     }
 
     public void prepareIORequestJsFunc(final V8 runtime) {
-        MemoryManager mReferenceManager = new MemoryManager(runtime);
         JavaVoidCallback ioRequestJavaCallback = new JavaVoidCallback() {
             public void invoke(final V8Object receiver, final V8Array parameters) {
                 JavaScriptApi.this.makeHttpRequest(runtime, parameters);
             }
         };
-        final V8Object iAmAjax = runtime.getObject("iAmApp").getObject("iAmAjax");
+        final V8Object iAmApp = runtime.getObject("iAmApp");
+        final V8Object iAmAjax = iAmApp.getObject("iAmAjax");
         iAmAjax.registerJavaMethod(ioRequestJavaCallback, "httpGet");
-        mReferenceManager.release();
+
+        iAmAjax.release();
+        iAmApp.release();
     }
 }

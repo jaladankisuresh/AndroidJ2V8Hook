@@ -2,17 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="vm" type="com.imnotout.androidj2v8hook.ViewModels.LauncherVM"/>
-        <variable name="activity" type="com.imnotout.androidj2v8hook.Views.LauncherActivity"/>
+        <variable name="mView" type="com.imnotout.androidj2v8hook.Views.LauncherActivity"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button android:layout_width="wrap_content"
+        <Button android:id="@+id/btn_launch_directory"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{activity.data.displayLabel, default=`Click Here`}"
-            android:onClick="@{activity::onClick}"
+            android:text="@{mView.data.displayLabel, default=`Click Here`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

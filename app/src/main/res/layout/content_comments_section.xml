@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type=".Models.AppModels.Comment"/>
+        <import type="com.imnotout.androidj2v8hook.Models.AppModels.Comment"/>
         <import type="com.imnotout.androidj2v8hook.ViewAdapters.CommentsArrayAdapter"/>
         <variable name="model" type="java.util.List&lt;Comment&gt;"/>
     </data>

@@ -3,8 +3,13 @@ package com.imnotout.androidj2v8hook.Models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AppBaseModels {
+
+    public interface IParsable {
+        String getPath();
+    }
 
     public interface ILauncher {
         public String getDisplayLabel();
@@ -45,7 +50,7 @@ public class AppBaseModels {
     }
 
     public static class RegistryBase
-        implements IRegistry {
+        implements IRegistry, IParsable {
 
         private String path;
         private String name;
@@ -53,6 +58,10 @@ public class AppBaseModels {
         private List<EstablishmentBase> establishments;
         private int count;
 
+        @Override
+        public String getPath() {
+            return path;
+        }
         @Override
         public String getName() {
             return name;
@@ -109,7 +118,7 @@ public class AppBaseModels {
         public void setComments(List comments);
     }
     public static class EstablishmentBase
-            implements IEstablishment {
+            implements IEstablishment, IParsable {
 
         private String path;
         private String name;
@@ -117,6 +126,11 @@ public class AppBaseModels {
         private String location;
         private int rating;
         private List<CommentBase> comments;
+
+        @Override
+        public String getPath() {
+            return path;
+        }
 
         @Override
         public String getName() {
@@ -179,6 +193,11 @@ public class AppBaseModels {
         private String path;
         private String id;
         private String text;
+
+        public CommentBase(String newComment) {
+            this.id = UUID.randomUUID().toString();;
+            this.text = newComment;
+        }
 
         @Override
         public String getId() {

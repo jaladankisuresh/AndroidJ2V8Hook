@@ -23,8 +23,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-task copyTask(type: Copy) {
-    from 'js/bin'
-    into 'app/src/main/assets/js'
-}

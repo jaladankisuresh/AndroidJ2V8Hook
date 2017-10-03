@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 
 import com.imnotout.androidj2v8hook.BR;
-import com.imnotout.androidj2v8hook.Models.AppBaseModels;
+import com.imnotout.androidj2v8hook.Models.AppModels;
 import com.imnotout.androidj2v8hook.R;
 import com.imnotout.androidj2v8hook.databinding.ListItemCommentLayoutBinding;
 
@@ -16,13 +16,13 @@ import java.util.List;
 public class CommentsArrayAdapter
         extends RecyclerView.Adapter<CommentsArrayAdapter.CommentViewHolder> {
 
-    private List<AppBaseModels.CommentBase> collection;
+    private List<AppModels.Comment> collection;
 
-    public CommentsArrayAdapter(List<AppBaseModels.CommentBase> collection) {
+    public CommentsArrayAdapter(List<AppModels.Comment> collection) {
         this.collection = collection;
     }
 
-    public static CommentsArrayAdapter newInstance(List<AppBaseModels.CommentBase> collection) {
+    public static CommentsArrayAdapter newInstance(List<AppModels.Comment> collection) {
         return new CommentsArrayAdapter(collection);
     }
 
@@ -52,7 +52,7 @@ public class CommentsArrayAdapter
             this.binding = binding;
         }
 
-        public void bind(String comment) {
+        public void bind(AppModels.Comment comment) {
             binding.setVariable(BR.model, comment);
             binding.executePendingBindings();
         }

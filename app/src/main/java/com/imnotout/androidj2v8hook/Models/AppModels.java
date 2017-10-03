@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import com.imnotout.androidj2v8hook.BR;
 import com.imnotout.androidj2v8hook.DataParsers.EstablishmentModelizer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +99,7 @@ public class AppModels {
     }
 
     public static class Establishment
-            extends BaseObservable implements AppBaseModels.IEstablishment {
+            extends BaseObservable implements AppBaseModels.IEstablishment, Serializable {
 
         private AppBaseModels.EstablishmentBase establishment;
         private List<Comment> comments;
@@ -111,6 +112,14 @@ public class AppModels {
             for (AppBaseModels.CommentBase commentBase : establishment.getComments()) {
                 comments.add(new Comment(commentBase));
             }
+        }
+
+        public AppBaseModels.EstablishmentBase getDataObject(){
+            return establishment;
+        }
+
+        public void setDataObject(AppBaseModels.EstablishmentBase obj){
+            establishment = obj;
         }
 
         @Bindable
@@ -139,7 +148,7 @@ public class AppModels {
 
         @Bindable
         @Override
-        public List getComments() {
+        public List<Comment> getComments() {
             return this.comments;
         }
 
@@ -192,10 +201,12 @@ public class AppModels {
         @Override
         public void setId(String id) {
             comment.setId(id);
+            notifyPropertyChanged(BR.id);
         }
         @Override
         public void setText(String text) {
             comment.setText(text);
+            notifyPropertyChanged(BR.text);
         }
     }
 

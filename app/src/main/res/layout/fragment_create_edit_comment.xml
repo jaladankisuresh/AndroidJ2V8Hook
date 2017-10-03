@@ -3,19 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
     <data>
+        <variable name="index" type="java.lang.Integer"/>
         <variable name="model" type="com.imnotout.androidj2v8hook.Models.AppModels.Establishment"/>
+        <variable name="mView" type="com.imnotout.androidj2v8hook.Views.CreateEditCommentFragment"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minWidth="1000dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@{`Establishment : ` + model.name}" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
+            android:text="@{`Establishment : ` + model.name, default=`Establishment Name`}" />
         <EditText android:id="@+id/txt_add_edit_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{model.comments[0]}" />
+            android:text="@{index > -1 ? model.comments[index].text : ``}" />
+        <Button android:id="@+id/btn_submit_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Submit Comment"/>
     </LinearLayout>
 </layout>
